@@ -8,9 +8,8 @@ async function buscarReceitas() {
     '<p style="text-align:center">Procurando no livro de receitas...</p>';
 
   try {
-    const resposta = await fetch(
-      `http://localhost:3000/receitas?ingredientes=${input}`
-    );
+    const resposta = await fetch('/api/receitas') 
+    .then(...)
     const receitas = await resposta.json();
 
     divResultados.innerHTML = "";
