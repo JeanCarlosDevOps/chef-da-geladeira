@@ -8,7 +8,7 @@ async function buscarReceitas() {
     '<p style="text-align:center">Procurando no livro de receitas...</p>';
 
   try {
-    const resposta = await fetch("/receitas?ingredientes=" + ingredientes);
+    const resposta = await fetch("/receitas?ingredientes=" + input);
     const receitas = await resposta.json();
 
     divResultados.innerHTML = "";
@@ -41,14 +41,13 @@ async function buscarReceitas() {
 // Nova função que chama a rota de detalhes
 async function verDetalhes(id) {
   try {
-    // Abre uma nova aba carregando...
     const novaAba = window.open("", "_blank");
     novaAba.document.write("<h1>Carregando a receita...</h1>");
 
-    const resposta = await fetch("/receitas?ingredientes=" + ingredientes);
+    // CORREÇÃO AQUI: Chama a rota certa usando o ID
+    const resposta = await fetch("/detalhes/" + id);
     const dados = await resposta.json();
 
-    // Redireciona a aba para o site original da receita
     if (dados.sourceUrl) {
       novaAba.location.href = dados.sourceUrl;
     } else {
