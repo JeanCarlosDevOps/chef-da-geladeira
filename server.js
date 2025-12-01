@@ -50,7 +50,7 @@ app.get("/detalhes/:id", async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/${id}/information`,
+      `https://api.spoonacular.com/recipes/${fd37e46c55bb46869106dc320b8dfff0}/information`,
       {
         params: {
           apiKey: process.env.SPOONACULAR_API_KEY,
