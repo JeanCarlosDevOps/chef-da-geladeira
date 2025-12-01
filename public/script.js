@@ -45,7 +45,7 @@ async function verDetalhes(id) {
     novaAba.document.write("<h1>Carregando a receita...</h1>");
 
     // CORREÇÃO AQUI: Chama a rota certa usando o ID
-    const resposta = await fetch("/detalhes" + id);
+    const resposta = await fetch("/detalhes/" + id);
     const dados = await resposta.json();
 
     if (dados.sourceUrl) {
