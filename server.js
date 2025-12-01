@@ -9,29 +9,46 @@ app.use(express.static("public")); // Serve os arquivos da pasta public (HTML/CS
 
 // Rota principal da API
 app.get("/receitas", async (req, res) => {
-  const ingredientes = req.query.ingredientes; // Pega o que o usuário digitou
+  const ingredientes = req.query.ingredientes;
+
+  // ESPIÃO 1: Vendo se o pedido chegou
+  console.log("1. Pedido recebido para:", ingredientes);
+
+  // ESPIÃO 2: Vendo se a chave existe (Cuidado: vai mostrar a chave nos logs)
+  console.log("2. Minha chave é:", process.env.SPOONACULAR_API_KEY);
 
   if (!ingredientes) {
     return res.status(400).json({ error: "Por favor, forneça ingredientes." });
   }
 
   try {
-    // A Mágica: Consulta a API externa
     const response = await axios.get(
       "https://api.spoonacular.com/recipes/findByIngredients",
       {
         params: {
           ingredients: ingredientes,
-          number: 5, // Retorna 5 receitas
+          number: 5,
           apiKey: process.env.SPOONACULAR_API_KEY,
-          ranking: 1, // Prioriza receitas que usem mais os ingredientes que você tem
+          ranking: 1,
         },
       }
     );
 
-    res.json(response.data); // Manda os dados para o Front-end
+    // ESPIÃO 3: Vendo o que a API respondeu
+    console.log(
+      "3. A API respondeu com quantas receitas?:",
+      response.data.length
+    );
+
+    res.json(response.data);
   } catch (error) {
-    console.error(error);
+    // ESPIÃO 4: Vendo o erro real e detalhado
+    console.error(
+      "4. DEU RUIM NA API:",
+      error.response ? error.response.data : error.message
+    );
+
+    // Mantemos a resposta genérica pro usuário, mas no log saberemos a verdade
     res.status(500).json({ error: "Erro ao buscar receitas." });
   }
 });
@@ -50,7 +67,7 @@ app.get("/detalhes/:id", async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/${fd37e46c55bb46869106dc320b8dfff0}/information`,
+      `https://api.spoonacular.com/recipes/${id}/information`,
       {
         params: {
           apiKey: process.env.SPOONACULAR_API_KEY,
