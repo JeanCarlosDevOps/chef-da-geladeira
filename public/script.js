@@ -8,7 +8,7 @@ async function buscarReceitas() {
     '<p style="text-align:center">Procurando no livro de receitas...</p>';
 
   try {
-    const resposta = await fetchfetch('/receitas?ingredientes=' + ...)
+    const resposta = await fetch("/receitas?ingredientes=" + ingredientes);
     const receitas = await resposta.json();
 
     divResultados.innerHTML = "";
