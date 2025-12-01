@@ -45,7 +45,7 @@ async function verDetalhes(id) {
     const novaAba = window.open("", "_blank");
     novaAba.document.write("<h1>Carregando a receita...</h1>");
 
-    const resposta = await fetch(`http://localhost:3000/detalhes/${id}`);
+    const resposta = await fetch("/receitas?ingredientes=" + ingredientes);
     const dados = await resposta.json();
 
     // Redireciona a aba para o site original da receita
