@@ -28,11 +28,13 @@ h1 {
   gap: 10px;
   margin-bottom: 40px;
 }
+
 h2 {
   adding-top: 10px;
   color: #666;
   font-size: 14px;
 }
+
 input {
   flex: 1;
   padding: 15px 20px;
